@@ -39,7 +39,38 @@ function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
       },
     };
     return adjDescriptor;
-  }
+}
+
+// Project List Class
+class ProjectList {
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
+
+    // 同じ名前のプロパティが自動で定義される
+    constructor(private type: 'active' | 'finished') {
+        this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+        this.hostElement = document.getElementById('app')! as HTMLDivElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${this.type}-projects`;
+
+        this.attach();
+        this.renderContent();
+    }
+
+    private renderContent() {
+        const listId = `${this.type}-projects-list`;
+        this.element.querySelector('ul')!.id = listId;
+        this.element.querySelector(`h2`)!.textContent = this.type === 'active' ? '実行中プロジェクト'　: '完了プロジェクト';
+    }
+
+    private attach(){
+        this.hostElement.insertAdjacentElement('beforeend', this.element);
+    }
+}
 
 // ProjectInput Class
 class ProjectInput {
@@ -54,26 +85,17 @@ class ProjectInput {
 
 
     constructor() {
-
-        // ! は指定された要素は必ず存在するとTypeScriptに教える
-        // as ????　は　型は　???? という割り当てをすること
         this.templateElement = document.getElementById('project-input')! as HTMLTemplateElement;
         this.hostElement = document.getElementById('app')! as HTMLDivElement;
 
-        // importNode関数でtemplateのcontent　を取得する
         const importedNode = document.importNode(this.templateElement.content, true);
 
         this.element = importedNode.firstElementChild as HTMLFormElement;
-
-        // ElementIDを割り当てる'user-input';
         this.element.id = 'user-input';
-
-        // Inputの要素
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
         this.mandayInputElement = this.element.querySelector('#manday') as HTMLInputElement;
-
-        // function を実行する
+        
         this.configure();
         this.attach();
     }
@@ -99,7 +121,7 @@ class ProjectInput {
           min: 1,
           max: 1000,
         };
-        
+
         if (
           !validate(titleValidatable) ||
           !validate(descriptionValidatable) ||
@@ -140,3 +162,5 @@ class ProjectInput {
 }
 
 const prjInput = new ProjectInput();
+const activePrjList = new ProjectList('active');
+const finishedPrjList = new ProjectList('finished');
