@@ -1,13 +1,13 @@
-// Drag and Drop
+// Drag & Drop
 interface Draggable {
-  dragStartHandler(event: DragEvent):void;
-  dragEndHandler(event: DragEvent):void;
+  dragStartHandler(event: DragEvent): void;
+  dragEndHandler(event: DragEvent): void;
 }
 
 interface DragTarget {
-  dragOverHandler(event: DragEvent):void;
-  dropHandler(event: DragEvent):void;
-  dragLeaveHandler(event: DragEvent):void;
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void;
+  dragLeaveHandler(event: DragEvent): void;
 }
 
 // Project Type
@@ -62,6 +62,18 @@ class ProjectState extends State<Project> {
       ProjectStatus.Active,
     );
     this.projects.push(newProject);
+    this.updateListeners();
+  }
+
+  moveProject(projectId: string, newStatus: ProjectStatus) {
+    const project = this.projects.find(prj => prj.id === projectId);
+    if (project && project.status !== newStatus) {
+      project.status = newStatus;
+      this.updateListeners();
+    }
+  }
+
+  private updateListeners() {
     for (const listenerFn of this.listeners) {
       listenerFn(this.projects.slice());
     }
@@ -168,15 +180,15 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
 }
 
 // ProjectItem Class
-class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> 
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement>
   implements Draggable {
   private project: Project;
 
   get manday() {
-    if(this.project.manday < 20) {
-    return this.project.manday.toString()+ '人日';
+    if (this.project.manday < 20) {
+      return this.project.manday.toString() + '人日';
     } else {
-    return (this.project.manday / 20).toString() + '人月';
+      return (this.project.manday / 20).toString() + '人月';
     }
   }
 
@@ -189,10 +201,12 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement>
   }
 
   @autobind
-  dragStartHandler(_: DragEvent){
-    console.log(event);
+  dragStartHandler(event: DragEvent) {
+    event.dataTransfer!.setData('text/plain', this.project.id);
+    event.dataTransfer!.effectAllowed = 'move';
   }
-  dragEndHandler(_2: DragEvent){
+
+  dragEndHandler(_: DragEvent) {
     console.log('Drag終了');
   }
 
@@ -209,7 +223,7 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement>
 }
 
 // ProjectList Class
-class ProjectList extends Component<HTMLDivElement, HTMLElement> 
+class ProjectList extends Component<HTMLDivElement, HTMLElement>
   implements DragTarget {
   assignedProjects: Project[];
 
@@ -222,15 +236,25 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement>
   }
 
   @autobind
-  dragOverHandler(_: DragEvent){
-    const listEl = this.element.querySelector('ul')!;
-    listEl.classList.add('droppable');
+  dragOverHandler(event: DragEvent) {
+    if (event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
+      event.preventDefault();
+      const listEl = this.element.querySelector('ul')!;
+      listEl.classList.add('droppable');
+    }
   }
 
-  dropHandler(_: DragEvent){}
+  @autobind
+  dropHandler(event: DragEvent) {
+    const prjId = event.dataTransfer!.getData('text/plain');
+    projectState.moveProject(
+      prjId,
+      this.type === 'active' ? ProjectStatus.Active : ProjectStatus.Finished,
+    );
+  }
 
   @autobind
-  dragLeaveHandler(_: DragEvent){
+  dragLeaveHandler(_: DragEvent) {
     const listEl = this.element.querySelector('ul')!;
     listEl.classList.remove('droppable');
   }
