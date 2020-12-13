@@ -1,19 +1,15 @@
 // autobind decrator
-function autobind(
-    _: any,
-    _2: string,
-    desciptor: PropertyDescriptor,
-    ) {
-    const originalMethod = desciptor.value;
+function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
     const adjDescriptor: PropertyDescriptor = {
-        configurable: true,
-        get(){
-            const boundFn = originalMethod.bind(this);
-            return boundFn;
-        }
-    }
+      configurable: true,
+      get() {
+        const boundFn = originalMethod.bind(this);
+        return boundFn;
+      },
+    };
     return adjDescriptor;
-}
+  }
 
 // ProjectInput Class
 class ProjectInput {
@@ -45,17 +41,38 @@ class ProjectInput {
         // Inputの要素
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
-        this.mandayInputElement = this.element.querySelector('#monday') as HTMLInputElement;
+        this.mandayInputElement = this.element.querySelector('#manday') as HTMLInputElement;
 
-
+        // function を実行する
         this.configure();
         this.attach();
     }
 
+    
+    private gatherUserInput(): [string, string, number] | void {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredManday = this.mandayInputElement.value;
+            if (
+                enteredTitle.trim().length === 0 ||
+                enteredDescription.trim().length === 0 ||
+                enteredManday.trim().length === 0
+            ) {
+                alert('入力値が正しくありません。再度お試しください。');
+                return;
+            } else {
+                return [enteredTitle, enteredDescription, +enteredManday];
+            }
+        }
+
     @autobind
     private submitHandler(event: Event) {
         event.preventDefault();
-        console.log(this.titleInputElement.value);
+        const userInput = this.gatherUserInput();
+        if (Array.isArray(userInput)){
+           const [title, desc, manday] = userInput;
+           console.log(title, desc, manday);
+        }
     }
 
     private configure() {
