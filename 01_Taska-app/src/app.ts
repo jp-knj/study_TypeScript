@@ -15,14 +15,23 @@ class Project {
 }
 
 // Project State Management
-type Listener = (items: Project[]) => void;
-class ProjectState {
-    private listeners: Listener[] = [];
+type Listener<T> = (items: T[]) => void;
+
+class State<T> {
+  protected listeners: Listener<T>[] = [];
+
+  addListener(listenerFn: Listener<T>) {
+    this.listeners.push(listenerFn);
+}
+
+}
+
+class ProjectState extends State<Project>{
     private projects: Project[] = [];
     private static instance: ProjectState;
 
     private constructor(){
-
+      super();
     }
 
     static getInstance(){
@@ -31,10 +40,6 @@ class ProjectState {
         }
         this.instance = new ProjectState();
         return this.instance;
-    }
-
-    addListener(listenerFn: Listener) {
-        this.listeners.push(listenerFn);
     }
 
     addProject(title: string, description: string, manday: number ) {
@@ -188,62 +193,63 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     
     this.configure();
   }
-    renderContent(){}
 
-    configure() {
-      this.element.addEventListener('submit', this.submitHandler.bind(this));
-    }
+  configure() {
+    this.element.addEventListener('submit', this.submitHandler.bind(this));
+  }
+  
+  renderContent(){}
     
-    private gatherUserInput(): [string, string, number] | void {
-        const enteredTitle = this.titleInputElement.value;
-        const enteredDescription = this.descriptionInputElement.value;
-        const enteredManday = this.mandayInputElement.value;
-    
-        const titleValidatable: Validatable = {
-          value: enteredTitle,
-          required: true,
-        };
-        const descriptionValidatable: Validatable = {
-          value: enteredDescription,
-          required: true,
-          minLength: 5,
-        };
-        const mandayValidatable: Validatable = {
-          value: +enteredManday,
-          required: true,
-          min: 1,
-          max: 1000,
-        };
+  private gatherUserInput(): [string, string, number] | void {
+      const enteredTitle = this.titleInputElement.value;
+      const enteredDescription = this.descriptionInputElement.value;
+      const enteredManday = this.mandayInputElement.value;
+  
+      const titleValidatable: Validatable = {
+        value: enteredTitle,
+        required: true,
+      };
+      const descriptionValidatable: Validatable = {
+        value: enteredDescription,
+        required: true,
+        minLength: 5,
+      };
+      const mandayValidatable: Validatable = {
+        value: +enteredManday,
+        required: true,
+        min: 1,
+        max: 1000,
+      };
 
-        if (
-          !validate(titleValidatable) ||
-          !validate(descriptionValidatable) ||
-          !validate(mandayValidatable)
-        ) {
-          alert('入力値が正しくありません。再度お試しください。');
-          return;
-        } else {
-          return [enteredTitle, enteredDescription, +enteredManday];
-        }
+      if (
+        !validate(titleValidatable) ||
+        !validate(descriptionValidatable) ||
+        !validate(mandayValidatable)
+      ) {
+        alert('入力値が正しくありません。再度お試しください。');
+        return;
+      } else {
+        return [enteredTitle, enteredDescription, +enteredManday];
       }
-
-    private clearInputs(){
-        this.titleInputElement.value = ``;
-        this.descriptionInputElement.value = ``;
-        this.mandayInputElement.value = ``;
     }
 
-    @autobind
-    private submitHandler(event: Event) {
-        event.preventDefault();
-        const userInput = this.gatherUserInput();
-        if (Array.isArray(userInput)){
-           const [title, desc, manday] = userInput;
-           projectState.addProject(title, desc, manday);
-           console.log(title, desc, manday);
-           this.clearInputs();
-        }
-    }
+  private clearInputs(){
+      this.titleInputElement.value = ``;
+      this.descriptionInputElement.value = ``;
+      this.mandayInputElement.value = ``;
+  }
+
+  @autobind
+  private submitHandler(event: Event) {
+      event.preventDefault();
+      const userInput = this.gatherUserInput();
+      if (Array.isArray(userInput)){
+          const [title, desc, manday] = userInput;
+          projectState.addProject(title, desc, manday);
+          console.log(title, desc, manday);
+          this.clearInputs();
+      }
+  }
 }
 
 const prjInput = new ProjectInput();
