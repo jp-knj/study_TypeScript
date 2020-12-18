@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TodoList from './components/TodoList';
 
-function App() {
+const App: React.FC = () => {
+  const todos = [{ id: 't1', text: 'TypeScriptコースの完了' }];
   return (
     <div className="App">
-
+      <TodoList items={todos}/>
     </div>
   );
-}
+};
 
 export default App;
