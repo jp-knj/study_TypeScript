@@ -6,6 +6,9 @@ import PieClass from "./PieClass";
 import PieHooks from "./PieHooks";
 import PieSVG from "./PieSVG";
 
+// Add Animation
+import AnimatedPieHooks from "./AnimatedPieHooks";
+
 function App() {
 
   const [width, height, innerRadius, outerRadius] = [200, 200, 60, 100];
@@ -26,6 +29,16 @@ function App() {
     <div className="App">
       <div>
         <button onClick={changeData}>Click</button>
+      </div>
+      <div>
+        <h2 className="label">Animated Hooks</h2>
+        <AnimatedPieHooks
+          data={data}
+          width={width}
+          height={height}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+        />
       </div>
       <div>
         <h2 className="label">React Class</h2>
