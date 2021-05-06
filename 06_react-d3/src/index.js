@@ -8,7 +8,10 @@ import PieSVG from "./PieSVG";
 
 // Add Animation
 import AnimatedPieHooks from "./AnimatedPieHooks";
+import AnimatedPieSVG from "./AnimatedPieSVG";
 
+//
+import CircleChart from "./Circle";
 function App() {
 
   const [width, height, innerRadius, outerRadius] = [200, 200, 60, 100];
@@ -30,8 +33,21 @@ function App() {
       <div>
         <button onClick={changeData}>Click</button>
       </div>
+      {/* <div>
+        <CircleChart />
+      </div> */}
+      {/* <div>
+        <h2 className="label">Animated SVG</h2>
+        <AnimatedPieSVG
+          data={data}
+          width={width}
+          height={height}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+        />
+      </div> */}
       <div>
-        <h2 className="label">Animated Hooks</h2>
+        <h2 className="label">React Hook</h2>
         <AnimatedPieHooks
           data={data}
           width={width}
@@ -40,7 +56,7 @@ function App() {
           outerRadius={outerRadius}
         />
       </div>
-      <div>
+      {/* <div>
         <h2 className="label">React Class</h2>
         <PieClass
           data={data}
@@ -49,8 +65,8 @@ function App() {
           innerRadius={innerRadius}
           outerRadius={outerRadius}
         />
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <h2>Hooks</h2>
         <PieHooks
           data={data}
@@ -69,7 +85,7 @@ function App() {
           innerRadius={innerRadius}
           outerRadius={outerRadius}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
