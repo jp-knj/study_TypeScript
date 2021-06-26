@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [reactRefresh()],
   esbuild: {
     jsxFactory: "jsx",
-    jsxInject: `import { jsx } from "@emotion/react"`,
+    jsxInject: `import { jsx, css } from "@emotion/react"`,
   },
 });

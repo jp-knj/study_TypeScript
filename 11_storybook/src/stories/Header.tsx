@@ -1,6 +1,7 @@
-import { css } from "@emotion/react";
+import React from "react";
 import { Button } from "./Button";
-import "./header.css";
+import { css } from "@emotion/react";
+// import "./header.css";
 
 interface HeaderProps {
   user?: {};
@@ -10,7 +11,7 @@ interface HeaderProps {
 }
 
 const hello = css`
-  background-color: red;
+  color: red;
 `;
 
 export const Header = ({
@@ -20,7 +21,7 @@ export const Header = ({
   onCreateAccount,
 }: HeaderProps) => (
   <header>
-    <div className="wrapper" css={{ color: "red" }}>
+    <div className="wrapper">
       <div>
         <svg
           width="32"

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vite/client", "@emotion/react/types/css-prop"],
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
@@ -13,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "jsxImportSource": "react"
   },
   "include": ["./src"]
