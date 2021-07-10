@@ -1,12 +1,12 @@
 import React from "react";
 
 interface PostProps {
-  title: string;
-  content: string;
-  user: Array<string>;
-  createdAt: Date;
-  stars: number;
-  comments: number;
+  title?: string;
+  content?: string;
+  user?: {};
+  createdAt?: Date;
+  stars?: number;
+  comments?: number;
 }
 
 const Post: React.FC<PostProps> = ({

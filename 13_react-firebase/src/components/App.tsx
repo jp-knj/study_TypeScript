@@ -1,16 +1,11 @@
 import React from "react";
 
-interface PostProps {
-  id: string;
-  title: string;
-  content: string;
-  user: Array<string>;
-}
+import Post from "./Post";
 
 const Application: React.FC = () => {
   return (
     <main className="Application">
-      <h1>Hello World</h1>
+      <Post />
     </main>
   );
 };
