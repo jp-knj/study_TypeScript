@@ -1,15 +1,15 @@
 import React from "react";
 
-interface PostProps {
-  title: string;
-  content: string;
-  user: {};
-  createdAt: Date;
-  stars: number;
-  comments: number;
-}
+//interface PostProps {
+//  title: string;
+//  content: string;
+//  user: {};
+//  createdAt: Date;
+//  stars: number;
+//  comments: number;
+//}
 
-const Post: React.FC<PostProps> = () => {
+const Post: React.FC = () => {
   return (
     <article className="Post">
       <div className="Post--content">
