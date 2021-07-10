@@ -1,27 +1,20 @@
 import React from "react";
 
 interface PostProps {
-  title?: string;
-  content?: string;
-  user?: {};
-  createdAt?: Date;
-  stars?: number;
-  comments?: number;
+  title: string;
+  content: string;
+  user: {};
+  createdAt: Date;
+  stars: number;
+  comments: number;
 }
 
-const Post: React.FC<PostProps> = ({
-  title,
-  content,
-  user,
-  createdAt,
-  stars,
-  comments,
-}) => {
+const Post: React.FC<PostProps> = () => {
   return (
     <article className="Post">
       <div className="Post--content">
-        <h3>{title}</h3>
-        <div>{content}</div>
+        <h3>title</h3>
+        <div>content</div>
       </div>
       <div className="Post--meta">
         <div>
@@ -29,16 +22,16 @@ const Post: React.FC<PostProps> = ({
             <span role="img" aria-label="star">
               ⭐️
             </span>
-            {stars}
+            stars
           </p>
           <p>
             <span role="img" aria-label="comments">
               🙊
             </span>
-            {comments}
+            comments
           </p>
-          <p>Posted by {user}</p>
-          <p>{createdAt}</p>
+          <p>Posted by user</p>
+          <p>createdAt</p>
         </div>
         <div>
           <button className="star">Star</button>
