@@ -10,12 +10,17 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import auth from "../util/firebase";
+
 const Login = (props: any) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
     // if logged in, redirect to home
+    auth.onAuthStateChanged((user) => {
+      user && props.history.push("/");
+    });
   }, []);
 
   return (
@@ -32,6 +37,9 @@ const Login = (props: any) => {
                 fullWidth
                 variant="outlined"
                 value={email}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setEmail(event.target.value);
+                }}
               />
             </FormControl>
             <FormControl fullWidth>
@@ -43,12 +51,23 @@ const Login = (props: any) => {
                 variant="outlined"
                 type="password"
                 value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setPassword(event.target.value);
+                }}
               />
             </FormControl>
             <FormControl fullWidth>
               <Button
                 fullWidth
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
+                onClick={async () => {
+                  try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    props.history.push("/");
+                  } catch (error) {
+                    alert(error.message);
+                  }
+                }}
               >
                 Login
               </Button>
