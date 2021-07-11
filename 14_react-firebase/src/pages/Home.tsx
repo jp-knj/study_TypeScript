@@ -2,11 +2,16 @@ import React, { Fragment, useEffect, useState } from "react";
 
 import { Button, Container, Grid, Typography } from "@material-ui/core";
 
+import auth from "../util/firebase";
+
 const Home = (props: any) => {
   const [currentUser, setCurrentUser] = useState<null | object>(null);
 
   useEffect(() => {
-    // if not logged in, redirect to login page
+    auth.onAuthStateChanged((user) => {
+      // if not logged in, redirect to login page
+      user ? setCurrentUser(user) : props.history.push("/login");
+    });
   }, []);
 
   return (
@@ -23,10 +28,20 @@ const Home = (props: any) => {
                 paddingBottom: "2em",
                 whiteSpace: "pre",
               }}
-            ></Typography>
+            >
+              {currentUser && JSON.stringify(currentUser, null, 4)}
+            </Typography>
             <Button
               fullWidth
               style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
+              onChange={async () => {
+                try {
+                  await auth.signOut();
+                  props.history.push("/login");
+                } catch (err) {
+                  alert(err.message);
+                }
+              }}
             >
               Logout
             </Button>

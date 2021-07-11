@@ -10,12 +10,17 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import auth from "../util/firebase";
+
 const Signup = (props: any) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    // if logged in, redirect to home
+    auth.onAuthStateChanged((user) => {
+      // if logged in, redirect to home
+      user && props.history.push("/");
+    });
   }, []);
 
   return (
@@ -32,6 +37,9 @@ const Signup = (props: any) => {
                 fullWidth
                 variant="outlined"
                 value={email}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setEmail(event.target.value);
+                }}
               />
             </FormControl>
             <FormControl fullWidth>
@@ -43,12 +51,25 @@ const Signup = (props: any) => {
                 variant="outlined"
                 type="password"
                 value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setPassword(event.target.value);
+                }}
               />
             </FormControl>
             <FormControl fullWidth>
               <Button
                 fullWidth
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
+                onClick={async () => {
+                  try {
+                    await auth.createUserWithEmailAndPassword(email, password);
+                    // sendSignInLinkToEmail() を利用すると、メールアドレス認証のためのメールを送信することも可能
+                    props.history.push("/login");
+                  } catch (error) {
+                    // if failed, alert it
+                    alert(error.message);
+                  }
+                }}
               >
                 Sign up
               </Button>
