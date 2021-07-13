@@ -1,4 +1,5 @@
 import React from "react";
+import { Swatch } from "./Swatch";
 import { Inputs } from "./Inputs";
 import { Sliders } from "./Sliders";
 import { reducer } from "./reducer";
@@ -11,9 +12,9 @@ const App = () => {
   });
   return (
     <main>
-      <div className="color-swatch" style={{}} />
+      <Swatch {...rgb} />
       <Inputs {...rgb} />
-      <Sliders />
+      <Sliders {...rgb} dispatch={dispatch} />
     </main>
   );
 };
