@@ -1,7 +1,8 @@
 import React from "react";
 import { Inputs } from "./Inputs";
-
+import { Sliders } from "./Sliders";
 import { reducer } from "./reducer";
+
 const App = () => {
   const [rgb, dispatch] = React.useReducer(reducer, {
     red: 0,
@@ -12,6 +13,7 @@ const App = () => {
     <main>
       <div className="color-swatch" style={{}} />
       <Inputs {...rgb} />
+      <Sliders />
     </main>
   );
 };
