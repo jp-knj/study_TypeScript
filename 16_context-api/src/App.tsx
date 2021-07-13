@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { Inputs } from "./Inputs";
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return <div className="App"></div>;
-}
+import { reducer } from "./reducer";
+const App = () => {
+  const [rgb, dispatch] = React.useReducer(reducer, {
+    red: 0,
+    green: 0,
+    blue: 0,
+  });
+  return (
+    <main>
+      <div className="color-swatch" style={{}} />
+      <Inputs {...rgb} />
+    </main>
+  );
+};
 
 export default App;
