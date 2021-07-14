@@ -61,6 +61,10 @@ export const App = () => {
             </label>
           </div>
         </section>
+        <section class={itemStyle}>
+          <h2>Preview</h2>
+          <pre class={previewStyle}>{JSON.stringify(null)}</pre>
+        </section>
       </div>
       <div class={orderStyle}>
         <button
@@ -132,3 +136,9 @@ const pickerStyle = (props: any) =>
     boxSizing: "border-box",
     border: props ? "4px dashed hotpink" : "none",
   });
+
+const previewStyle = css({
+  margin: "32px auto",
+  padding: "8px",
+  backgroundColor: "#eee",
+});
