@@ -14,6 +14,7 @@ export interface AdjustmentProps {
 
 export const Sliders = ({ Adjustment }: AdjustmentProps) => {
   const { red, green, blue, dispatch } = React.useContext(RGBContext);
+
   const adjustRed = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "ADJUST_RED", payload: +event.target.value });
   };
