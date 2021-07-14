@@ -1,14 +1,18 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useContext } from "react";
 
 import { Slider } from "./Slider";
 import { AdjustmentAction } from "./reducer";
 import { RGBColorType } from "./type";
+import { RGBContext } from "./context";
 
 interface ColorSidersProps extends RGBColorType {
   dispatch: Dispatch<AdjustmentAction>;
 }
 
-export const Sliders = ({ red, green, blue, dispatch }: ColorSidersProps) => {
+export const Sliders = () => {
+  const { red, green, blue, dispatch } = useContext<ColorSidersProps>(
+    RGBContext
+  );
   const adjustRed = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "ADJUST_RED", payload: +event.target.value });
   };

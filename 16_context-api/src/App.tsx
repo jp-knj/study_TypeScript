@@ -12,9 +12,9 @@ const App = () => {
   });
   return (
     <main>
-      <Swatch {...rgb} />
-      <Inputs {...rgb} />
-      <Sliders {...rgb} dispatch={dispatch} />
+      <Swatch />
+      <Inputs />
+      <Sliders />
     </main>
   );
 };
