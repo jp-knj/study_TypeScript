@@ -2,6 +2,8 @@ import { useState } from "preact/hooks";
 import { css } from "goober";
 
 import { Order } from "./order";
+import { Preview } from "./preview";
+
 const flavorsList = [
   "mintcream",
   "lemonchiffon",
@@ -32,10 +34,7 @@ export const App = () => {
             withCone,
           }}
         />
-        <section class={itemStyle}>
-          <h2>Preview</h2>
-          <pre class={previewStyle}>{JSON.stringify(null)}</pre>
-        </section>
+        <Preview flavors={flavors} withCone={withCone} />
       </div>
       <div class={orderStyle}>
         <button
@@ -74,15 +73,4 @@ const orderButtonStyle = css({
   margin: "8px",
   width: "200px",
   fontSize: "1.4rem",
-});
-
-const itemStyle = css({
-  backgroundColor: "#fff",
-  padding: "16px",
-});
-
-const previewStyle = css({
-  margin: "32px auto",
-  padding: "8px",
-  backgroundColor: "#eee",
 });
