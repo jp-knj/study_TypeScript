@@ -1,6 +1,20 @@
+import { useState } from "preact/hooks";
 import { css } from "goober";
 
+const flavorsList = [
+  "mintcream",
+  "lemonchiffon",
+  "wheat",
+  "plum",
+  "lime",
+  "skyblue",
+  "tomato",
+  "green",
+  "chocolate",
+  "maroon",
+];
 export const App = () => {
+  const [currentFlavorIdx] = useState<number>(0);
   return (
     <main class={mainStyle}>
       <header>
@@ -9,6 +23,11 @@ export const App = () => {
       <div class={containerStyle}>
         <section class={itemStyle}>
           <h2>Order</h2>
+          <div class={pickerWrapStyle}>
+            {flavorsList.map((f, idx) => (
+              <div key={f} style={{ backgroundColor: f }} />
+            ))}
+          </div>
           <div class={actionStyle}>
             <button
               class={actionButtonStyle}
@@ -98,3 +117,18 @@ const actionButtonStyle = css({
   width: "100px",
   fontSize: "1.2rem",
 });
+
+const pickerWrapStyle = css({
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  margin: "32px auto",
+});
+
+const pickerStyle = (props: any) =>
+  css({
+    width: "80px",
+    height: "80px",
+    boxSizing: "border-box",
+    border: props ? "4px dashed hotpink" : "none",
+  });
