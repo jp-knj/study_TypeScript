@@ -6,6 +6,7 @@ import { Picker } from "./picker";
 export const Order: FunctionalComponent<IOrderProps> = ({
   flavorsList,
   currentFlavorIdx,
+  setCurrentFlavorIdx,
   withCone,
 }) => (
   <section class={itemStyle}>
@@ -13,7 +14,7 @@ export const Order: FunctionalComponent<IOrderProps> = ({
     <Picker
       flavorsList={flavorsList}
       currentFlavorIdx={currentFlavorIdx}
-      onPick={(idx: number) => console.log(idx)}
+      onPick={(idx: number) => setCurrentFlavorIdx}
     />
     <div class={actionStyle}>
       <button class={actionButtonStyle} onClick={() => console.log("Add!")}>

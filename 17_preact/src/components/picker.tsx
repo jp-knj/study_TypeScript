@@ -5,6 +5,7 @@ import { IOrderProps } from "./type";
 export const Picker: FunctionalComponent<IOrderProps> = ({
   flavorsList,
   currentFlavorIdx,
+  setCurrentFlavorIdx,
   onPick,
 }) => (
   <div class={pickerWrapStyle}>

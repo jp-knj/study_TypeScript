@@ -16,10 +16,17 @@ const flavorsList = [
   "chocolate",
   "maroon",
 ];
+const useFlavors = (currentFlavorIdx: number) => {
+  const [flavors, setFlavors] = useState([flavorsList[4]]);
+  return {
+    flavors,
+    setFlavors,
+  };
+};
 
 export const App = () => {
-  const [currentFlavorIdx] = useState<number>(0);
-  const [flavors] = useState([flavorsList[4]]);
+  const [currentFlavorIdx, setCurrentFlavorIdx] = useState<number>(0);
+  const [flavors, setFlavors] = useState<Array<string>>([flavorsList[4]]);
   const [withCone] = useState(true);
   return (
     <main class={mainStyle}>
@@ -31,6 +38,7 @@ export const App = () => {
           {...{
             flavorsList,
             currentFlavorIdx,
+            setCurrentFlavorIdx,
             withCone,
           }}
         />
