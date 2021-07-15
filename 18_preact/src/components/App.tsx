@@ -2,8 +2,8 @@ import { h } from "preact";
 import { useState } from "preact/hooks";
 import { css } from "goober";
 
-import { Order } from "./order.jsx";
-import { Preview } from "./preview.jsx";
+import { Order } from "./order";
+import { Preview } from "./preview";
 
 const flavorsList = [
   "mintcream",
@@ -18,11 +18,8 @@ const flavorsList = [
   "maroon",
 ];
 
-export const App = () => {
-  const [currentFlavorIdx, setCurrentFlavorIdx] = useState(0);
+export const useFlavor = (currentFlavorIdx: number) => {
   const [flavors, setFlavors] = useState([flavorsList[4]]);
-  const [withCone, setWithCone] = useState(true);
-
   const addFlavor = () => {
     if (flavors.length >= 3) return;
     const nextFlavors = [...flavors, flavorsList[currentFlavorIdx]];
@@ -33,6 +30,18 @@ export const App = () => {
     nextFlavors.pop();
     setFlavors(nextFlavors);
   };
+
+  return {
+    flavors,
+    addFlavor,
+    deleteFlavor,
+  };
+};
+
+export const App = () => {
+  const [currentFlavorIdx, setCurrentFlavorIdx] = useState(0);
+  const [withCone, setWithCone] = useState(true);
+  const { flavors } = useFlavor(currentFlavorIdx);
 
   return (
     <main class={mainStyle}>
@@ -46,8 +55,6 @@ export const App = () => {
             currentFlavorIdx,
             withCone,
             setCurrentFlavorIdx,
-            addFlavor,
-            deleteFlavor,
             setWithCone,
           }}
         />
