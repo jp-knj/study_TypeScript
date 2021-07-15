@@ -1,7 +1,7 @@
 export interface IOrderProps {
   flavorsList: Array<string>;
   currentFlavorIdx: number;
-  setCurrentFlavorIdx?: StateUpdater<number>;
+  setCurrentFlavorIdx?: number;
   withCone?: boolean;
   onPick?: any;
 }

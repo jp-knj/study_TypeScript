@@ -16,18 +16,31 @@ const flavorsList = [
   "chocolate",
   "maroon",
 ];
-const useFlavors = (currentFlavorIdx: number) => {
+export const useFlavors = (currentFlavorIdx: number) => {
   const [flavors, setFlavors] = useState([flavorsList[4]]);
+  const addFlavor = () => {
+    if (flavors.length >= 3) return;
+    const nextFlavors = [...flavors, flavorsList[currentFlavorIdx]];
+    setFlavors(nextFlavors);
+  };
+  const deleteFlavor = () => {
+    const nextFlavors = [...flavors];
+    nextFlavors.pop();
+    setFlavors(nextFlavors);
+  };
   return {
     flavors,
     setFlavors,
+    addFlavor,
+    deleteFlavor,
   };
 };
 
 export const App = () => {
   const [currentFlavorIdx, setCurrentFlavorIdx] = useState<number>(0);
-  const [flavors, setFlavors] = useState<Array<string>>([flavorsList[4]]);
-  const [withCone] = useState(true);
+  const [flavors, setFlavors] = useState([flavorsList[4]]);
+  const [withCone, setWithCone] = useState<boolean>(true);
+
   return (
     <main class={mainStyle}>
       <header>
@@ -40,6 +53,7 @@ export const App = () => {
             currentFlavorIdx,
             setCurrentFlavorIdx,
             withCone,
+            setWithCone,
           }}
         />
         <Preview flavors={flavors} withCone={withCone} />
@@ -47,7 +61,7 @@ export const App = () => {
       <div class={orderStyle}>
         <button
           class={orderButtonStyle}
-          onClick={() => console.log("My order is ????")}
+          onClick={() => console.log("My order is", { flavors, withCone })}
         >
           Order👌
         </button>
