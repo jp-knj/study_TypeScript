@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "yarn build --watch --preserveWatchOutput",
-    "lint": "eslint src --exc js,ts",
+    "lint": "eslint src --ext js,ts",
     "test": "jest"
   },
   "devDependencies": {
