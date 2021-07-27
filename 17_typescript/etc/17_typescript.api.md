@@ -13,6 +13,6 @@ export function avg(a: number, b: number, c: number): number;
 export function sum2(a: number, b: number): number;
 
 // @beta
-export function sum3(a: number, b: number, c: number): number;
+export function sum3(a: number, b: number, c: number, d?: number): number;
 
 ```

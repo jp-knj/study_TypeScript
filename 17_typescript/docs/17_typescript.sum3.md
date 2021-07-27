@@ -12,7 +12,7 @@ Calculate the sum of three numbers
 <b>Signature:</b>
 
 ```typescript
-export declare function sum3(a: number, b: number, c: number): number;
+export declare function sum3(a: number, b: number, c: number, d?: number): number;
 ```
 
 ## Parameters
@@ -22,6 +22,7 @@ export declare function sum3(a: number, b: number, c: number): number;
 |  a | number | first number |
 |  b | number | second number |
 |  c | number | third number |
+|  d | number |  |
 
 <b>Returns:</b>
 

@@ -11,5 +11,5 @@ A small library for common math functions
 |  Function | Description |
 |  --- | --- |
 |  [avg(a, b, c)](./17_typescript.avg.md) | Calculate the average of three numbers |
-|  [sum3(a, b, c)](./17_typescript.sum3.md) | <b><i>(BETA)</i></b> Calculate the sum of three numbers |
+|  [sum3(a, b, c, d)](./17_typescript.sum3.md) | <b><i>(BETA)</i></b> Calculate the sum of three numbers |
 
